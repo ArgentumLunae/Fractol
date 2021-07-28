@@ -6,7 +6,7 @@
 #    By: mteerlin <mteerlin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/28 15:02:52 by mteerlin      #+#    #+#                  #
-#    Updated: 2021/03/23 14:17:52 by mteerlin      ########   odam.nl          #
+#    Updated: 2021/07/28 17:12:59 by mteerlin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAME):	$(OBJECTS)
 				ar rcs $(NAME) $(OBJECTS)
 
 %.o:		%.c $(HEADER)
-			$(CC) -c $(CFLAGS) -o $@ $<
+			@$(CC) -c $(CFLAGS) -o $@ $<
 
 bonus:
 			$(MAKE) WITH_BONUS=1 all

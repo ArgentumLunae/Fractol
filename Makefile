@@ -6,7 +6,7 @@
 #    By: mteerlin <mteerlin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/07/21 12:25:06 by mteerlin      #+#    #+#                  #
-#    Updated: 2021/07/21 14:11:54 by mteerlin      ########   odam.nl          #
+#    Updated: 2021/07/28 17:23:56 by mteerlin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,12 @@ $(NAME):	$(LIBFT) $(MLX) $(OBJ)
 			$(CC) $(CFLAGS) -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
 
 $(LIBFT):
-			@$(MAKE) -C $(LIBFT_DIR) bonus
+			$(MAKE) -C $(LIBFT_DIR) bonus
 
 $(MLX):
-			@$(MAKE) -C $(MLX_DIR)
+			$(MAKE) -C $(MLX_DIR)
 
-$(OBJ_DIR)%.o:		$(SRC_DIR)%.c $(HDR)
+$(OBJ_DIR)%.o:		$(SRC_DIR)%.c
 			@mkdir -p $(dir $@)
 			$(CC) $(CFLAGS) -c $< -o $@
 
