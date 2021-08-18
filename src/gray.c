@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   Gray.c                                             :+:    :+:            */
+/*   gray.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/21 12:25:03 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/07/28 18:30:20 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/17 15:06:03 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <stdbool.h>
 #include <math.h>
 #include "../hdr/mandelbrot.h"
+#define MAXITER 100
+
+double zoomfactor = 1;
 
 typedef struct s_data
 {
@@ -35,6 +38,12 @@ typedef struct s_vars
 	int		hori;
 	int		vert;
 }	t_vars;
+
+typedef struct s_complex
+{
+	double	real;
+	double	imaginary;
+}	t_complex;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -72,6 +81,17 @@ int	keyrelease(int keycode, t_vars *prog)
 	return (0);
 }
 
+int	buttonpress(int button, t_vars *prog)
+{
+	if (button == 4)
+		zoomfactor *= 1.05;
+	else if (button == 5)
+		zoomfactor /= 1.05;
+	else if (prog)
+		printf("buttoncode: %i\n", button);
+	return (button);
+}
+
 int	enterwin(void)
 {
 	printf("Hello!\n");
@@ -94,6 +114,7 @@ int	events(t_vars *prog)
 {
 	mlx_hook(prog->win, 2, 1L << 0, keypress, prog);
 	mlx_hook(prog->win, 3, 1L << 1, keyrelease, prog);
+	mlx_hook(prog->win, 4, 1L << 2, buttonpress, prog);
 	mlx_hook(prog->win, 7, 1L << 4, enterwin, prog);
 	mlx_hook(prog->win, 8, 1L << 5, exitwin, prog);
 	mlx_hook(prog->win, 17, 0L, closeprog, prog);
@@ -101,42 +122,40 @@ int	events(t_vars *prog)
 	return (0);
 }
 
-bool	mandelbrot(double real, double complex)
+int	mandelbrot(double real, double complex)
 {
-	int		cnt;
-	double	realsq;
-	double	complexsq;
+	int			cnt;
+	t_complex	z;
+	double		realsq;
+	double		complexsq;
+	double		abs;
 
-	if (complex == 0 && real > 0.25)
-		return (false);
+	realsq = pow(real, 2);
+	complexsq = pow(complex, 2);
+	abs = sqrt(realsq + complexsq);
+	//printf("r: %lf, c: %lf\tabs: %lf\t", real, complex, abs);
 	cnt = 0;
-	while (cnt < 1000)
+	while (abs < 2 && cnt < MAXITER)
 	{
-		realsq = pow(real, 2);
-		complexsq = pow(complex, 2);
-		if (sqrt(realsq + complexsq) > 2)
-			return (false);
-		real = realsq + complexsq + real;
-		complex = (2 * real + 1) * complex;
+		z.real = realsq - complexsq + real;
+		z.imaginary = 2 * z.real * z.imaginary + complex;
+		realsq = pow(z.real, 2);
+		complexsq = pow(z.imaginary, 2);
+		abs = sqrt(realsq + complexsq);
 		cnt++;
 	}
-	return (true);
+	//printf("cnt: %d\n", cnt);
+	return (cnt);
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_vars	prog;
 	t_data	img;
-	int		domain;
+	int		mandel;
 	int		x;
 	int		y;
 
-	if (argc != 2 && !ft_isdigit(**argv))
-	{
-		printf("Error: 1 program argument required");
-		return (0);
-	}
-	domain = ft_atoi(*argv);
 	prog.hori = 1000;
 	prog.vert = 1000;
 	prog.holdkey = false;
@@ -150,11 +169,13 @@ int	main(int argc, char **argv)
 		x = 0;
 		while (x < prog.hori)
 		{
-			//printf("x:/t%lf, y:/t%lf\n", 4 * ((double)x - (prog.hori / 2)) / (prog.hori / 2), 4 * (((double)y - (prog.vert / 2)) / (prog.hori / 2)));
-			if (mandelbrot(2 * ((double)x - (prog.hori / 2)) / (prog.hori / 2), 2 * (((double)y - (prog.vert / 2)) / (prog.hori / 2))))
+			//printf("(%d, %d)\n", x, y);
+			printf("(%lf + %lfi)\n", 2 * (((double)x / (prog.hori / 2)) - 1), 2 * (((double)y / (prog.vert / 2)) - 1));
+			mandel = mandelbrot((2.5 / zoomfactor) * (((double)x / (prog.hori / 2)) - 1), (2.5 / zoomfactor) * (((double)y / (prog.vert / 2)) - 1));
+			if (mandel == MAXITER)
 				my_mlx_pixel_put(&img, x, y, 0);
 			else
-				my_mlx_pixel_put(&img, x, y, 200);
+				my_mlx_pixel_put(&img, x, y, (0xffff80 * mandel / MAXITER) + 128);
 			x++;
 		}
 		y++;
