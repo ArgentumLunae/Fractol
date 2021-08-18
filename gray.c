@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/21 12:25:03 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/17 15:06:03 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/18 15:14:35 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,11 @@ int	mandelbrot(double real, double complex)
 	double		complexsq;
 	double		abs;
 
+	z.real = 0;
+	z.imaginary = 0;
 	realsq = pow(real, 2);
 	complexsq = pow(complex, 2);
 	abs = sqrt(realsq + complexsq);
-	//printf("r: %lf, c: %lf\tabs: %lf\t", real, complex, abs);
 	cnt = 0;
 	while (abs < 2 && cnt < MAXITER)
 	{
@@ -144,8 +145,19 @@ int	mandelbrot(double real, double complex)
 		abs = sqrt(realsq + complexsq);
 		cnt++;
 	}
-	//printf("cnt: %d\n", cnt);
 	return (cnt);
+}
+
+t_vars	setup_prog(void)
+{
+	t_vars prog;
+
+	prog.hori = 500;
+	prog.vert = 500;
+	prog.holdkey = false;
+	prog.mlx = mlx_init();
+	prog.win = mlx_new_window(prog.mlx, prog.hori, prog.vert, "zoom");
+	return (prog);
 }
 
 int	main(void)
@@ -156,11 +168,7 @@ int	main(void)
 	int		x;
 	int		y;
 
-	prog.hori = 1000;
-	prog.vert = 1000;
-	prog.holdkey = false;
-	prog.mlx = mlx_init();
-	prog.win = mlx_new_window(prog.mlx, prog.hori, prog.vert, "Gray");
+	prog = setup_prog();
 	img.img = mlx_new_image(prog.mlx, prog.hori, prog.vert);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.llength, &img.endian);
 	y = 0;
@@ -169,13 +177,11 @@ int	main(void)
 		x = 0;
 		while (x < prog.hori)
 		{
-			//printf("(%d, %d)\n", x, y);
-			printf("(%lf + %lfi)\n", 2 * (((double)x / (prog.hori / 2)) - 1), 2 * (((double)y / (prog.vert / 2)) - 1));
 			mandel = mandelbrot((2.5 / zoomfactor) * (((double)x / (prog.hori / 2)) - 1), (2.5 / zoomfactor) * (((double)y / (prog.vert / 2)) - 1));
 			if (mandel == MAXITER)
 				my_mlx_pixel_put(&img, x, y, 0);
 			else
-				my_mlx_pixel_put(&img, x, y, (0xffff80 * mandel / MAXITER) + 128);
+				my_mlx_pixel_put(&img, x, y, (0xbfbfbf * mandel / MAXITER) + 0x404040);
 			x++;
 		}
 		y++;

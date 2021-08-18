@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mandelbrot.h                                       :+:    :+:            */
+/*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/07/28 17:03:27 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/16 15:32:30 by mteerlin      ########   odam.nl         */
+/*   Created: 2021/08/18 15:15:46 by mteerlin      #+#    #+#                 */
+/*   Updated: 2021/08/18 18:23:00 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MANDELBROT_H
-# define MANDELBROT_H
+#include "../incl/libft/libft.h"
+#include "../hdr/fractol.h"
+#include <stdlib.h>
 
-int	mandelbrot(double real, double complex);
+int	main(int argc, char **argv)
+{
+	t_prog	prog;
 
-#endif
+	check_arguments(argc, argv);
+	prog = setup_mlx(500, 500, argv[1]);
+	events_mlx(&prog);
+	return (0);
+}

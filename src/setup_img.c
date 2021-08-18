@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mandelbrot.c                                       :+:    :+:            */
+/*   setup_img.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/07/28 15:30:31 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/16 12:30:16 by mteerlin      ########   odam.nl         */
+/*   Created: 2021/08/18 20:02:37 by mteerlin      #+#    #+#                 */
+/*   Updated: 2021/08/18 20:09:30 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include <math.h>
+#include "../hdr/fractol.h"
+#include "../incl/mlx/mlx.h"
 
-bool	mandelbrot(double real, double complex)
+t_data	setup_img(t_prog *prog)
 {
-	int	cnt;
+	t_data	img;
 
-	if (complex == 0 && real > 0.25)
-		return (false);
-	cnt = 0;
-	while (cnt < 100000)
-	{
-		if (sqrt(pow(real, 2) + pow(complex, 2)) > 2)
-			return (false);
-		real = pow(real, 2) + pow(complex, 2) + real;
-		complex = (2 * real + 1) * complex;
-		cnt++;
-	}
-	return (true);
+	img.img = mlx_new_imgage(prog->mlx, prog->win.hori, prog->win.vert);
+	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.llength, &img.endian);
+	return (img);
+}
+
+void	gen_imgage(t_prog *prog)
+{
+	int	x;
+	int	y;
+	int	colour;
 }

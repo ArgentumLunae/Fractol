@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:20:09 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/17 15:24:52 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/18 14:31:20 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <math.h>
 #include <limits.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
 double	g_zoom;
@@ -68,7 +69,7 @@ int	rainbow_circle(float x, float y)
 	if ((int)modulus == 0)
 		colour = (0xffffff);
 	else
-		colour = 0xffffff - ((int)modulus % 0xffffff);
+		colour = 0xffffff - (int)modulus;
 	return (colour);
 }
 
@@ -79,6 +80,7 @@ void	create_img(t_vars *prog)
 	int	colour;
 
 	y = 0;
+	ft_putnbr_fd(prog->hori, 1);
 	while (y < prog->hori)
 	{
 		x = 0;
@@ -96,6 +98,7 @@ int	keypress(int keycode, t_vars *prog)
 {
 	static int	holdcounter;
 
+	printf("access program: %d\n", prog->hori);
 	if (prog->holdkey == false)
 	{
 		prog->holdkey = true;
@@ -120,8 +123,9 @@ int	keyrelease(int keycode, t_vars *prog)
 	return (0);
 }
 
-int	buttonpress(int button, t_vars *prog)
+int	buttonpress(int button, int x, int y, t_vars *prog)
 {
+	printf("cursor coordinates, [%d, %d]\n", x, y);
 	if (button == 4)
 	{
 		g_zoom *= 1.05;
