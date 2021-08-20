@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 15:15:46 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/18 18:23:00 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/20 13:50:58 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	main(int argc, char **argv)
 	t_prog	prog;
 
 	check_arguments(argc, argv);
-	prog = setup_mlx(500, 500, argv[1]);
+	prog = setup_mlx(500, 500, argv);
+	gen_imgage(&prog);
 	events_mlx(&prog);
 	return (0);
 }

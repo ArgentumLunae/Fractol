@@ -6,29 +6,20 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/07/21 12:25:03 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/18 15:14:35 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/20 12:51:39 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/mlx/mlx.h"
-#include "../incl/libft/libft.h"
+#include "incl/mlx/mlx.h"
+#include "incl/libft/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
-#include "../hdr/mandelbrot.h"
+#include "hdr/fractol.h"
 #define MAXITER 100
 
 double zoomfactor = 1;
-
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		llength;
-	int		endian;
-}	t_data;
 
 typedef struct s_vars
 {
@@ -38,12 +29,6 @@ typedef struct s_vars
 	int		hori;
 	int		vert;
 }	t_vars;
-
-typedef struct s_complex
-{
-	double	real;
-	double	imaginary;
-}	t_complex;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -130,8 +115,8 @@ int	mandelbrot(double real, double complex)
 	double		complexsq;
 	double		abs;
 
-	z.real = 0;
-	z.imaginary = 0;
+	z.real = real;
+	z.imag = complex;
 	realsq = pow(real, 2);
 	complexsq = pow(complex, 2);
 	abs = sqrt(realsq + complexsq);
@@ -139,9 +124,9 @@ int	mandelbrot(double real, double complex)
 	while (abs < 2 && cnt < MAXITER)
 	{
 		z.real = realsq - complexsq + real;
-		z.imaginary = 2 * z.real * z.imaginary + complex;
+		z.imag = 2 * z.real * z.imag + complex;
 		realsq = pow(z.real, 2);
-		complexsq = pow(z.imaginary, 2);
+		complexsq = pow(z.imag, 2);
 		abs = sqrt(realsq + complexsq);
 		cnt++;
 	}
