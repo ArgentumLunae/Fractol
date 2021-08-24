@@ -6,13 +6,12 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 16:43:52 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/24 18:38:16 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/24 18:41:04 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# include <stdbool.h>
 # define MAX_ITER 1000
 # define TRANS_FACT 0.1
 # define ZOOM_FACT 1.05

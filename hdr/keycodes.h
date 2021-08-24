@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/23 16:23:25 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/24 18:36:23 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/24 18:45:31 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,110 @@
 #  define K_PGUP 65365
 #  define K_PGDWN 65366
 # else
-#  define ESC 53
+#  define K_A
+#  define K_B
+#  define K_C
+#  define K_D
+#  define K_E
+#  define K_F
+#  define K_G
+#  define K_H
+#  define K_I
+#  define K_J
+#  define K_K
+#  define K_L
+#  define K_M
+#  define K_N
+#  define K_O
+#  define K_P
+#  define K_Q
+#  define K_R
+#  define K_S
+#  define K_T
+#  define K_U
+#  define K_V
+#  define K_W
+#  define K_X
+#  define K_Y
+#  define K_Z
+
+#  define K_ZERO
+#  define K_ONE
+#  define K_TWO
+#  define K_THREE
+#  define K_FOUR
+#  define K_FIVE
+#  define K_SIX
+#  define K_SEVEN
+#  define K_EIGHT
+#  define K_NINE
+
+#  define K_GRAVE
+#  define K_DASH
+#  define K_EQL
+#  define K_SQBO
+#  define K_SQBC
+#  define K_CLN
+#  define K_QTE
+#  define K_COMMA
+#  define K_PERIOD
+#  define K_SLASH
+#  define K_BSLASH
+
+#  define K_NUMLCK
+#  define K_NUMZERO
+#  define K_NUMONE
+#  define K_NUMTWO
+#  define K_NUMTHREE
+#  define K_NUMFOUR
+#  define K_NUMFIVE
+#  define K_NUMSIX
+#  define K_NUMSEVEN
+#  define K_NUMEIGHT
+#  define K_NUMNINE
+#  define K_NUMDIV
+#  define K_NUMMULT
+#  define K_NUMSUB
+#  define K_NUMADD
+#  define K_NUMENTR
+#  define K_NUMDOT
+
+#  define K_ESC
+#  define K_FONE
+#  define K_FTWO
+#  define K_FTHREE
+#  define K_FFOUR
+#  define K_FFIVE
+#  define K_FSIX
+#  define K_FSEVEN
+#  define K_FEIGHT
+#  define K_FNINE
+#  define K_FTEN
+#  define K_FELEVEN
+#  define K_FTWELVE
+
+#  define K_UP
+#  define K_DOWN
+#  define K_LEFT
+#  define K_RIGHT
+
+#  define K_LSHFT
+#  define K_LCTRL
+#  define K_LALT
+#  define K_CPSLCK
+#  define K_TAB
+#  define K_RSHFT
+#  define K_RCTRL
+#  define K_RALT
+#  define K_ENTR
+#  define K_BCKSPC
+
+#  define K_PAUSE
+#  define K_INSRT
+#  define K_DEL
+#  define K_HOME
+#  define K_END
+#  define K_PGUP
+#  define K_PGDWN
 # endif
 #endif
