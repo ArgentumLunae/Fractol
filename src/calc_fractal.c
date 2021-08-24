@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/20 11:42:19 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/23 14:59:11 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/24 17:16:54 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,13 @@ int	mandelbrot(double real, double imag)
 	return (cnt);
 }
 
-t_complex	get_complex_comp(t_args *args)
-{
-	t_complex	ret;
-
-	if (args->argc < 3)
-	{
-		ret.real = STD_REAL;
-		ret.imag = STD_IMAG;
-	}
-	else if (args->argc < 4)
-	{
-		ret.real = ft_atoi(args->argv[2]);
-		ret.imag = STD_IMAG;
-	}
-	else
-	{
-		ret.real = ft_atof(args->argv[2]);
-		ret.imag = ft_atof(args->argv[3]);
-	}
-	return (ret);
-}
-
-int	julia(t_args *args, t_complex z)
+int	julia(t_complex args, t_complex z)
 {
 	int			cnt;
 	t_complex	c;
 	t_complex	sq;
 
-	c = get_complex_comp(args);
+	c = args;
 	sq.real = z.real * z.real;
 	sq.imag = z.imag * z.imag;
 	cnt = 0;
@@ -85,22 +63,24 @@ int	calc_fractal(t_prog *prog, int x, int y)
 	int			depth;
 	t_complex	c;
 
-	c.real = (2 / prog->zoom) * ((2 * (double)x) / prog->win.hori - 1);
+	c.real = ((2 * prog->win.ar) / prog->zoom);
+	c.real *= ((2 * ((double)x + 0.5)) / prog->win.hori - 1);
 	c.real += prog->offset.real;
-	c.imag = -(2 / prog->zoom) * ((2 * (double)y) / prog->win.vert - 1);
+	c.imag = (2 / prog->zoom);
+	c.imag *= ((2 * ((double)y + 0.5)) / prog->win.vert - 1);
 	c.imag += prog->offset.imag;
-	if (!ft_strncmp(prog->args.argv[1], "mandelbrot", 11))
+	if (!ft_strncmp(prog->argv[1], "mandelbrot", 11))
 	{
 		depth = mandelbrot(c.real, c.imag);
 		if (depth == MAX_ITER)
 			return (0);
 		else
-			return (0x000060 + ((5 * depth) % 0xffffa0));
+			return (0xfeffff80 * depth / MAX_ITER + 0x00000080);
 	}
-	else if (!ft_strncmp(prog->args.argv[1], "julia", 6))
+	else if (!ft_strncmp(prog->argv[1], "julia", 6))
 	{
-		depth = julia(&prog->args, c);
-		return (0x000060 + ((5 * depth) % 0xffffa0));
+		depth = julia(prog->args, c);
+		return (0xfeffff80 * depth / MAX_ITER + 0x00000080);
 	}
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 18:06:07 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/23 14:14:57 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/24 17:16:13 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ t_prog	setup_mlx(int x, int y, int argc, char **argv)
 
 	prog.win.hori = x;
 	prog.win.vert = y;
+	prog.win.ar = (double)x / (double)y;
 	prog.zoom = 1;
-	prog.args.argc = argc;
-	prog.args.argv = argv;
+	prog.args = get_complex_comp(argc, argv);
+	prog.argv = argv;
 	prog.offset.real = 0;
 	prog.offset.imag = 0;
 	prog.mlx = mlx_init();

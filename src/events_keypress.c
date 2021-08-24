@@ -6,22 +6,43 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/23 14:41:07 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/23 16:30:38 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/24 18:33:36 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdr/fractol.h"
 #include "../hdr/keycodes.h"
 
-void	arrowkeys(int keycode, t_prog *prog)
+void	translate(int keycode, t_prog *prog)
 {
-	if (keycode == LEFT)
+	if (keycode == K_LEFT)
 		prog->offset.real -= 0.1 / prog->zoom;
-	if (keycode == UP)
-		prog->offset.imag += 0.1 / prog->zoom;
-	if (keycode == RIGHT)
-		prog->offset.real += 0.1 / prog->zoom;
-	if (keycode == DOWN)
+	if (keycode == K_UP)
 		prog->offset.imag -= 0.1 / prog->zoom;
+	if (keycode == K_RIGHT)
+		prog->offset.real += 0.1 / prog->zoom;
+	if (keycode == K_DOWN)
+		prog->offset.imag += 0.1 / prog->zoom;
+	gen_imgage(prog);
+}
+
+void	alter_fractal(int keycode, t_prog *prog)
+{
+	if (keycode == K_NUMFOUR)
+		prog->args.real -= FRACT_SHIFT;
+	if (keycode == K_NUMSIX)
+		prog->args.real += FRACT_SHIFT;
+	if (keycode == K_NUMEIGHT)
+		prog->args.imag += FRACT_SHIFT;
+	if (keycode == K_NUMTWO)
+		prog->args.imag -= FRACT_SHIFT;
+	gen_imgage(prog);
+}
+
+void	reset_transform(t_prog *prog)
+{
+	prog->offset.real = 0;
+	prog->offset.imag = 0;
+	prog->zoom = 1;
 	gen_imgage(prog);
 }

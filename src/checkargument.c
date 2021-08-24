@@ -6,11 +6,12 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 16:42:38 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/23 13:34:33 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/24 17:14:15 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/libft/libft.h"
+#include "../hdr/fractol.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -35,4 +36,26 @@ void	check_arguments(int argc, char **argv)
 		print_set_list();
 		exit(EXIT_SUCCESS);
 	}
+}
+
+t_complex	get_complex_comp(int argc, char **argv)
+{
+	t_complex	ret;
+
+	if (argc < 3)
+	{
+		ret.real = STD_REAL;
+		ret.imag = STD_IMAG;
+	}
+	else if (argc < 4)
+	{
+		ret.real = ft_atoi(argv[2]);
+		ret.imag = STD_IMAG;
+	}
+	else
+	{
+		ret.real = ft_atof(argv[2]);
+		ret.imag = ft_atof(argv[3]);
+	}
+	return (ret);
 }

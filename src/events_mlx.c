@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 19:40:26 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/23 16:31:02 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/24 18:35:47 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,25 @@ int	close_prog(void)
 int	keypress_mlx(int keycode, t_prog *prog)
 {
 	printf("Keycode:\t%i\n", keycode);
-	if (keycode == ESC)
+	if (keycode >= K_LEFT && keycode <= K_DOWN)
+		translate(keycode, prog);
+	if (keycode >= K_NUMFOUR && keycode <= K_NUMTWO)
+		alter_fractal(keycode, prog);
+	if (keycode == K_ZERO && prog->keyheld == K_LCTRL)
+		reset_transform(prog);
+	prog->keyheld = keycode;
+	return (0);
+}
+
+int	keyrelease_mlx(int keycode, t_prog *prog)
+{
+	if (keycode == prog->keyheld)
+		prog->keyheld = 0;
+	if (keycode == K_ESC)
 	{
 		mlx_destroy_window(prog->mlx, prog->win.win);
 		close_prog();
 	}
-	if (keycode >= 65361 && keycode <= 65364)
-		arrowkeys(keycode, prog);
 	return (0);
 }
 
@@ -39,12 +51,13 @@ int	buttonpress_mlx(int button, int x, int y, t_prog *prog)
 {
 	if (button == 4 && x < prog->win.hori)
 	{
-		prog->zoom *= 1.05;
+		get_translation(prog, x, y);
+		prog->zoom *= ZOOM_FACT;
 		gen_imgage(prog);
 	}
 	else if (button == 5 && y < prog->win.vert)
 	{
-		prog->zoom /= 1.05;
+		prog->zoom /= ZOOM_FACT;
 		gen_imgage(prog);
 	}
 	return (0);
@@ -52,7 +65,8 @@ int	buttonpress_mlx(int button, int x, int y, t_prog *prog)
 
 void	events_mlx(t_prog *prog)
 {
-	mlx_hook(prog->win.win, 3, 1L << 1, keypress_mlx, prog);
+	mlx_hook(prog->win.win, 2, 1L << 0, keypress_mlx, prog);
+	mlx_hook(prog->win.win, 3, 1L << 1, keyrelease_mlx, prog);
 	mlx_hook(prog->win.win, 4, 1L << 2, buttonpress_mlx, prog);
 	mlx_hook(prog->win.win, 17, 0L, close_prog, prog);
 	mlx_loop(prog->mlx);
