@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 16:42:38 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/20 12:07:41 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/23 13:34:33 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	check_arguments(int argc, char **argv)
 	{
 		printf("No input argument found.\n");
 		print_set_list();
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 	else if (ft_strncmp(argv[1], "mandelbrot", 11) && \
 				 ft_strncmp(argv[1], "julia", 6))
 	{
 		printf("imput argument not recognised.\n");
 		print_set_list();
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 }

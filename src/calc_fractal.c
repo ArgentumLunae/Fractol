@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/20 11:42:19 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/20 16:12:33 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/23 14:59:11 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,44 @@ int	mandelbrot(double real, double imag)
 	return (cnt);
 }
 
-int	julia(char **argv, double real, double imag)
+t_complex	get_complex_comp(t_args *args)
+{
+	t_complex	ret;
+
+	if (args->argc < 3)
+	{
+		ret.real = STD_REAL;
+		ret.imag = STD_IMAG;
+	}
+	else if (args->argc < 4)
+	{
+		ret.real = ft_atoi(args->argv[2]);
+		ret.imag = STD_IMAG;
+	}
+	else
+	{
+		ret.real = ft_atof(args->argv[2]);
+		ret.imag = ft_atof(args->argv[3]);
+	}
+	return (ret);
+}
+
+int	julia(t_args *args, t_complex z)
 {
 	int			cnt;
 	t_complex	c;
 	t_complex	sq;
 
-	c.real = ft_atof(argv[2]);
-	c.imag = ft_atof(argv[3]);
-	sq.real = real * real;
-	sq.imag = imag * imag;
+	c = get_complex_comp(args);
+	sq.real = z.real * z.real;
+	sq.imag = z.imag * z.imag;
 	cnt = 0;
 	while ((sq.real + sq.imag) < 4 && cnt < MAX_ITER)
 	{
-		imag = 2 * real * imag + c.imag;
-		real = sq.real - sq.imag + c.real;
-		sq.real = real * real;
-		sq.imag = imag * imag;
+		z.imag = 2 * z.real * z.imag + c.imag;
+		z.real = sq.real - sq.imag + c.real;
+		sq.real = z.real * z.real;
+		sq.imag = z.imag * z.imag;
 		cnt++;
 	}
 	return (cnt);
@@ -64,9 +85,11 @@ int	calc_fractal(t_prog *prog, int x, int y)
 	int			depth;
 	t_complex	c;
 
-	c.real = (2.5 / prog->zoom) * ((2 * (double)x) / prog->win.hori - 1);
-	c.imag = -(2.5 / prog->zoom) * ((2 * (double)y) / prog->win.vert - 1);
-	if (!ft_strncmp(prog->argv[1], "mandelbrot", 11))
+	c.real = (2 / prog->zoom) * ((2 * (double)x) / prog->win.hori - 1);
+	c.real += prog->offset.real;
+	c.imag = -(2 / prog->zoom) * ((2 * (double)y) / prog->win.vert - 1);
+	c.imag += prog->offset.imag;
+	if (!ft_strncmp(prog->args.argv[1], "mandelbrot", 11))
 	{
 		depth = mandelbrot(c.real, c.imag);
 		if (depth == MAX_ITER)
@@ -74,9 +97,9 @@ int	calc_fractal(t_prog *prog, int x, int y)
 		else
 			return (0x000060 + ((5 * depth) % 0xffffa0));
 	}
-	else if (!ft_strncmp(prog->argv[1], "julia", 6))
+	else if (!ft_strncmp(prog->args.argv[1], "julia", 6))
 	{
-		depth = julia(prog->argv, c.real, c.imag);
+		depth = julia(&prog->args, c);
 		return (0x000060 + ((5 * depth) % 0xffffa0));
 	}
 	return (-1);

@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   keycodes.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/08/18 15:15:46 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/23 13:38:58 by mteerlin      ########   odam.nl         */
+/*   Created: 2021/08/23 16:23:25 by mteerlin      #+#    #+#                 */
+/*   Updated: 2021/08/23 16:27:19 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/libft/libft.h"
-#include "../hdr/fractol.h"
-#include <stdlib.h>
-
-int	main(int argc, char **argv)
-{
-	t_prog	prog;
-
-	check_arguments(argc, argv);
-	prog = setup_mlx(500, 500, argc, argv);
-	prog.args.argc = argc;
-	prog.args.argv = argv;
-	gen_imgage(&prog);
-	events_mlx(&prog);
-	return (0);
-}
+#ifndef KEYCODES_H
+# define KEYCODES_H
+# ifdef __linux__
+#  define ESC 65307
+#  define UP 65362
+#  define DOWN 65364
+#  define LEFT 65361
+#  define RIGHT 65363
+# else
+#  define ESC 53
+# endif
+#endif

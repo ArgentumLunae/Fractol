@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   events_keypress.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/08/18 15:15:46 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/23 13:38:58 by mteerlin      ########   odam.nl         */
+/*   Created: 2021/08/23 14:41:07 by mteerlin      #+#    #+#                 */
+/*   Updated: 2021/08/23 16:30:38 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/libft/libft.h"
 #include "../hdr/fractol.h"
-#include <stdlib.h>
+#include "../hdr/keycodes.h"
 
-int	main(int argc, char **argv)
+void	arrowkeys(int keycode, t_prog *prog)
 {
-	t_prog	prog;
-
-	check_arguments(argc, argv);
-	prog = setup_mlx(500, 500, argc, argv);
-	prog.args.argc = argc;
-	prog.args.argv = argv;
-	gen_imgage(&prog);
-	events_mlx(&prog);
-	return (0);
+	if (keycode == LEFT)
+		prog->offset.real -= 0.1 / prog->zoom;
+	if (keycode == UP)
+		prog->offset.imag += 0.1 / prog->zoom;
+	if (keycode == RIGHT)
+		prog->offset.real += 0.1 / prog->zoom;
+	if (keycode == DOWN)
+		prog->offset.imag -= 0.1 / prog->zoom;
+	gen_imgage(prog);
 }

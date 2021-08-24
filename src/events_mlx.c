@@ -6,13 +6,15 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 19:40:26 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/19 13:10:10 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/23 16:31:02 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdr/fractol.h"
+#include "../hdr/keycodes.h"
 #include "../incl/mlx/mlx.h"
 #include "stdlib.h"
+#include <stdio.h>
 
 int	close_prog(void)
 {
@@ -22,11 +24,14 @@ int	close_prog(void)
 
 int	keypress_mlx(int keycode, t_prog *prog)
 {
-	if (keycode == 53)
+	printf("Keycode:\t%i\n", keycode);
+	if (keycode == ESC)
 	{
 		mlx_destroy_window(prog->mlx, prog->win.win);
 		close_prog();
 	}
+	if (keycode >= 65361 && keycode <= 65364)
+		arrowkeys(keycode, prog);
 	return (0);
 }
 
