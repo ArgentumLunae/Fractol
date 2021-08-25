@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 19:40:26 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/24 18:35:47 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/25 14:34:27 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ int	close_prog(void)
 
 int	keypress_mlx(int keycode, t_prog *prog)
 {
-	printf("Keycode:\t%i\n", keycode);
-	if (keycode >= K_LEFT && keycode <= K_DOWN)
+	if (keycode == K_LEFT || keycode == K_RIGHT \
+	    || keycode == K_UP || keycode == K_DOWN)
 		translate(keycode, prog);
-	if (keycode >= K_NUMFOUR && keycode <= K_NUMTWO)
+	if (keycode == K_NUMTWO || keycode == K_NUMFOUR \
+		|| keycode == K_NUMSIX || keycode == K_NUMEIGHT)
 		alter_fractal(keycode, prog);
 	if (keycode == K_ZERO && prog->keyheld == K_LCTRL)
 		reset_transform(prog);
