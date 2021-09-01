@@ -6,13 +6,12 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/23 14:41:07 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/26 17:13:57 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/01 12:05:13 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdr/fractol.h"
 #include "../hdr/keycodes.h"
-#include <stdio.h>
 
 void	translate(int keycode, t_prog *prog)
 {
@@ -37,7 +36,6 @@ void	alter_fractal(int keycode, t_prog *prog)
 		prog->args.imag += (FRACT_SHIFT / prog->zoom);
 	if (keycode == K_NUMTWO)
 		prog->args.imag -= (FRACT_SHIFT / prog->zoom);
-	printf("%Lf + %Lfi\n", prog->args.real, prog->args.imag);
 	gen_imgage(prog);
 }
 

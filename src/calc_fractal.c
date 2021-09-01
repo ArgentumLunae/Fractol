@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/20 11:42:19 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/26 17:13:07 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/01 11:55:22 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,28 +58,27 @@ unsigned int	julia(t_complex args, t_complex z, unsigned int iter)
 	return (cnt);
 }
 
-unsigned int	newton(t_complex args, t_complex z, unsigned int iter)
+unsigned int	shipwreck(t_complex args, t_complex z, unsigned int iter)
 {
 	unsigned int	cnt;
 	t_complex		c;
 	t_complex		sq;
-	t_complex		polydiv;
 
 	c = args;
+	c = z;
+	c.imag *= -1;
 	sq.real = z.real * z.real;
 	sq.imag = z.imag * z.imag;
 	cnt = 0;
 	while ((sq.real + sq.imag) < 4 && cnt < iter)
 	{
-		polydiv = complex_div(calc_polynomial(z), calc_polyprime(z));
-		z.real -= c.real * polydiv.real - c.imag * polydiv.imag;
-		z.imag -= c.real * polydiv.imag + c.imag * polydiv.real;
+		complex_abs(&z);
+		z.imag = 2 * z.real * z.imag + c.imag;
+		z.real = sq.real - sq.imag + c.real;
 		sq.real = z.real * z.real;
 		sq.imag = z.imag * z.imag;
 		cnt++;
 	}
-	if (cnt == iter)
-		return (0);
 	return (cnt);
 }
 

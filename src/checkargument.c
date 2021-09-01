@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 16:42:38 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/26 14:09:19 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/01 11:30:33 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	print_set_list(void)
 {
 	printf("supply which available fractal to display.\n");
-	printf("1.\tmandelbrot\n2.\tjulia\n3.\tnewton\n");
+	printf("1.\tmandelbrot\n2.\tjulia\n3.\tshipwreck\n");
 }
 
 void	check_arguments(int argc, char **argv)
@@ -31,7 +31,7 @@ void	check_arguments(int argc, char **argv)
 	}
 	else if (ft_strncmp(argv[1], "mandelbrot", 11) && \
 			ft_strncmp(argv[1], "julia", 6) && \
-			ft_strncmp(argv[1], "newton", 7))
+			ft_strncmp(argv[1], "shipwreck", 7))
 	{
 		printf("imput argument not recognised.\n");
 		print_set_list();

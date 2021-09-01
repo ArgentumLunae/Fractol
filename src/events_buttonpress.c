@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 16:10:21 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/26 17:44:07 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/01 12:05:31 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	increment_iterations(t_prog *prog)
 {
 	unsigned int	additer;
 
-	additer = BASE_ITER * ((prog->zoom - 1) / (sqrt(prog->zoom)));
+	additer = BASE_ITER + sqrt(sqrt(prog->zoom));
 	if (additer > UINT_MAX - BASE_ITER)
 		prog->iter = UINT_MAX;
 	else

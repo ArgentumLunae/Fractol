@@ -6,13 +6,11 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 15:15:46 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/25 11:07:08 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/01 12:03:45 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incl/libft/libft.h"
 #include "../hdr/fractol.h"
-#include <stdlib.h>
 
 int	main(int argc, char **argv)
 {

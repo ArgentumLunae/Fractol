@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 16:43:52 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/26 17:42:26 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/01 12:09:17 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,9 @@ void			gen_imgage(t_prog *prog);
 int				calc_fractal(t_prog *prog, int x, int y);
 unsigned int	mandelbrot(t_complex args, t_complex z, unsigned int iter);
 unsigned int	julia(t_complex args, t_complex z, unsigned int iter);
-unsigned int	newton(t_complex args, t_complex z, unsigned int iter);
+unsigned int	shipwreck(t_complex args, t_complex z, unsigned int iter);
 
-t_complex		calc_polynomial(t_complex z);
-t_complex		calc_polyprime(t_complex z);
-t_complex		complex_div(t_complex num, t_complex denum);
+void			complex_abs(t_complex *c);
 
 int				get_colour(int	depth);
 

@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 18:06:07 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/26 17:43:49 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/01 11:30:13 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_setfunc	setup_function(char *set)
 		return (*mandelbrot);
 	if (!ft_strncmp(set, "julia", 6))
 		return (*julia);
-	if (!ft_strncmp(set, "newton", 7))
-		return (*newton);
+	if (!ft_strncmp(set, "shipwreck", 7))
+		return (*shipwreck);
 	return (NULL);
 }
 
