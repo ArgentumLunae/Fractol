@@ -6,13 +6,15 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 20:02:37 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/23 13:35:21 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/26 17:44:50 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdr/fractol.h"
 #include "../incl/mlx/mlx.h"
-#include <stdlib.h>
+#include <stdio.h>
+#include <limits.h>
+#include <math.h>
 
 t_data	setup_img(t_prog *prog)
 {

@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 19:40:26 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/25 14:34:27 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/26 17:43:05 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	buttonpress_mlx(int button, int x, int y, t_prog *prog)
 	{
 		get_translation(prog, x, y);
 		prog->zoom *= ZOOM_FACT;
+		increment_iterations(prog);
 		gen_imgage(prog);
 	}
 	else if (button == 5 && y < prog->win.vert)

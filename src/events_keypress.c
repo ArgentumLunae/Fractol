@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/23 14:41:07 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/08/25 14:35:51 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/08/26 17:13:57 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	translate(int keycode, t_prog *prog)
 void	alter_fractal(int keycode, t_prog *prog)
 {
 	if (keycode == K_NUMFOUR)
-		prog->args.real -= FRACT_SHIFT;
+		prog->args.real -= (FRACT_SHIFT / prog->zoom);
 	if (keycode == K_NUMSIX)
-		prog->args.real += FRACT_SHIFT;
+		prog->args.real += (FRACT_SHIFT / prog->zoom);
 	if (keycode == K_NUMEIGHT)
-		prog->args.imag += FRACT_SHIFT;
+		prog->args.imag += (FRACT_SHIFT / prog->zoom);
 	if (keycode == K_NUMTWO)
-		prog->args.imag -= FRACT_SHIFT;
-	printf("%lf + %lfi\n", prog->args.real, prog->args.imag);
+		prog->args.imag -= (FRACT_SHIFT / prog->zoom);
+	printf("%Lf + %Lfi\n", prog->args.real, prog->args.imag);
 	gen_imgage(prog);
 }
 
