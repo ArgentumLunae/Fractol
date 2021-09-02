@@ -6,7 +6,7 @@
 #    By: mteerlin <mteerlin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/07/21 12:25:06 by mteerlin      #+#    #+#                  #
-#    Updated: 2021/09/02 19:28:46 by mteerlin      ########   odam.nl          #
+#    Updated: 2021/09/02 19:31:47 by mteerlin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAME	= fractol
 INCL_DIR := incl/
 HDR_DIR := hdr/
 HDR		:= fractol.h
-SRCFL	:= sources.txt
+SRCSFL	:= sources.txt
 SRC_DIR := src/
-SRC		:= $(shell cat $(SRCFL))
+SRC		:= $(shell cat $(SRCSFL))
 
 OBJ_DIR := obj/
 OBJ		:= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
