@@ -6,7 +6,7 @@
 #    By: mteerlin <mteerlin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/07/21 12:25:06 by mteerlin      #+#    #+#                  #
-#    Updated: 2021/09/01 11:04:35 by mteerlin      ########   odam.nl          #
+#    Updated: 2021/09/02 19:28:46 by mteerlin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAME	= fractol
 INCL_DIR := incl/
 HDR_DIR := hdr/
 HDR		:= fractol.h
+SRCFL	:= sources.txt
 SRC_DIR := src/
-TMP		:= $(wildcard $(SRC_DIR)*.c)
-SRC		:= $(TMP:$(SRC_DIR)%=%)
+SRC		:= $(shell cat $(SRCFL))
 
 OBJ_DIR := obj/
 OBJ		:= $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
@@ -33,15 +33,15 @@ CFLAGS	?= -Wall -Wextra -Werror -fsanitize=address -g
 all: 		$(NAME)
 
 $(NAME):	$(LIBFT) $(MLX) $(OBJ)
-#			$(CC) $(CFLAGS) -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
-			$(CC) -fsanitize=address -g $(OBJ) -L$(MLXL_DIR) -lmlx -L$(LIBFT_DIR) -lft -Imlx -Ilibft -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME)
+			$(CC) $(CFLAGS) -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
+#			$(CC) -fsanitize=address -g $(OBJ) -L$(MLXL_DIR) -lmlx -L$(LIBFT_DIR) -lft -Imlx -Ilibft -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME)
 
 $(LIBFT):
 			$(MAKE) -C $(LIBFT_DIR) bonus
 
 $(MLX):
-#			$(MAKE) -C $(MLX_DIR)
-			$(MAKE) -C $(MLXL_DIR)
+			$(MAKE) -C $(MLX_DIR)
+#			$(MAKE) -C $(MLXL_DIR)
 
 $(OBJ_DIR)%.o:		$(SRC_DIR)%.c $(HDR_DIR)$(HDR)
 			@mkdir -p $(dir $@)
