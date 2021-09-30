@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 18:06:07 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/09/01 11:30:13 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/30 13:29:06 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ t_setfunc	setup_function(char *set)
 	return (NULL);
 }
 
+t_data	setup_img_data(t_prog *prog)
+{
+	t_data	img;
+
+	img.img = mlx_new_image(prog->mlx, prog->win.hori, prog->win.vert);
+	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line, &img.endian);
+	return (img);
+}
+
 t_prog	setup_mlx(int x, int y, int argc, char **argv)
 {
 	t_prog	prog;
@@ -40,14 +49,7 @@ t_prog	setup_mlx(int x, int y, int argc, char **argv)
 	prog.iter = BASE_ITER;
 	prog.mlx = mlx_init();
 	prog.win.win = mlx_new_window(prog.mlx, x, y, argv[1]);
+	prog.img[0] = setup_img_data(&prog);
+	prog.img[1] = setup_img_data(&prog);
 	return (prog);
-}
-
-t_data	setup_img_data(t_prog *prog)
-{
-	t_data	img;
-
-	img.img = mlx_new_image(prog->mlx, prog->win.hori, prog->win.vert);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.llength, &img.endian);
-	return (img);
 }

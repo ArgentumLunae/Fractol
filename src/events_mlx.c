@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 19:40:26 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/09/01 12:04:18 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/30 13:52:23 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	keyrelease_mlx(int keycode, t_prog *prog)
 		prog->keyheld = 0;
 	if (keycode == K_ESC)
 	{
+		mlx_destroy_image(prog->mlx, prog->img[0].img);
+		mlx_destroy_image(prog->mlx, prog->img[1].img);
 		mlx_destroy_window(prog->mlx, prog->win.win);
 		close_prog();
 	}

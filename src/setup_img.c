@@ -6,38 +6,28 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 20:02:37 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/09/01 12:05:00 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/30 13:29:17 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../hdr/fractol.h"
 #include "../incl/mlx/mlx.h"
 
-t_data	setup_img(t_prog *prog)
-{
-	t_data	img;
-
-	img.img = mlx_new_image(prog->mlx, prog->win.hori, prog->win.vert);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.llength, &img.endian);
-	return (img);
-}
-
 void	img_pixel_put(t_data *img, int x, int y, int colour)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->llength + x * (img->bpp / 8));
+	dst = img->addr + (y * img->line + x * (img->bpp / 8));
 	*(unsigned int *)dst = colour;
 }
 
 void	gen_imgage(t_prog *prog)
 {
-	int		x;
-	int		y;
-	int		colour;
-	t_data	img;
+	int			x;
+	int			y;
+	int			colour;
+	static int	i = 0;
 
-	img = setup_img(prog);
 	y = 0;
 	while (y < prog->win.vert)
 	{
@@ -45,11 +35,14 @@ void	gen_imgage(t_prog *prog)
 		while (x < prog->win.hori)
 		{
 			colour = calc_fractal(prog, x, y);
-			img_pixel_put(&img, x, y, colour);
+			img_pixel_put(&(prog->img[i]), x, y, colour);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(prog->mlx, prog->win.win, img.img, 0, 0);
-	mlx_destroy_image(prog->mlx, img.img);
+	mlx_put_image_to_window(prog->mlx, prog->win.win, prog->img[i].img, 0, 0);
+	if (i == 0)
+		i = 1;
+	else
+		i = 0;
 }

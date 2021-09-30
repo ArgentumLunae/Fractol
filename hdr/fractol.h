@@ -6,15 +6,15 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/18 16:43:52 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/09/01 12:09:17 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/30 13:31:12 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define BASE_ITER 32
+# define BASE_ITER 128
 # define TRANS_FACT 0.1
-# define ZOOM_FACT 1.5
+# define ZOOM_FACT 1.2
 # define FRACT_SHIFT 0.05
 # define STD_REAL 0
 # define STD_IMAG 0
@@ -36,6 +36,15 @@ typedef struct s_complex
 typedef unsigned int	(*t_setfunc)\
 	(t_complex args, t_complex c, unsigned int iter);
 
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line;
+	int		endian;
+}	t_data;
+
 typedef struct s_prog
 {
 	void			*mlx;
@@ -47,16 +56,8 @@ typedef struct s_prog
 	int				setindex;
 	unsigned int	iter;
 	int				keyheld;
+	t_data			img[2];
 }	t_prog;
-
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		llength;
-	int		endian;
-}	t_data;
 
 void			check_arguments(int argc, char **argv);
 t_complex		get_complex_comp(int argc, char **argv);
