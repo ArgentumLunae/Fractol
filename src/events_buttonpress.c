@@ -6,7 +6,7 @@
 /*   By: mteerlin <mteerlin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 16:10:21 by mteerlin      #+#    #+#                 */
-/*   Updated: 2021/09/30 13:38:44 by mteerlin      ########   odam.nl         */
+/*   Updated: 2021/09/30 16:24:09 by mteerlin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	increment_iterations(t_prog *prog)
 	cutoff = INT_MAX / 32;
 	if (prog->iter == cutoff)
 		return ;
-	additer = BASE_ITER + sqrt(sqrt(prog->zoom));
+	additer = BASE_ITER + sqrt(sqrt(prog->zoom)) - 1;
 	if (additer > cutoff - BASE_ITER)
 		prog->iter = cutoff;
 	else
